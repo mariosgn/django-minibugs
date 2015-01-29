@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Minibugs - Bug tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://bootswatch.com/darkly/bootstrap.css">
+    <link rel="stylesheet" href="http://bootswatch.com/assets/css/bootswatch.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <style type="text/css">
+    footer {
+        font-size: 12px;
+    }
+
+    </style>
+    {% block css %}
+    {% endblock %}
+  </head>
+  <body>
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="{% url 'minibugs_home' %}" class="navbar-brand">Minibugs</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+           
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{% url 'minibugs_create' %}">New ticket</a></li>
+
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <h2>Mini Bug Tracker</h2>
+            <p class="lead"></p>
+          </div> 
+        </div>
+
+        {% for message in messages %}
+            <div class="alert fade in {% if message.tags %} alert-{{ message.tags }}{% endif %}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {% block content %}
+        {% endblock %}
+
+      <footer>
+        <div class="row">
+          <div class="col-lg-12">
+
+            <ul class="list-unstyled">
+              <li class="pull-right"><a href="#top">Back to top</a></li>
+              <li><a href="https://github.com/thomaspark/bootswatch/">GitHub</a></li>
+            </ul>
+            <p>Made by <a href="http://www.gnufish.net" rel="nofollow">Mario Signorino</a>. Contact him at <a
+                    href="mailto:mario.signorino@gnufish.net">mario.signorino@gnufish.net</a> .</p>
+            <p>Code released under the <a href="http://www.gnu.org/copyleft/gpl.html">GPL License</a>.</p>
+            <p>Theme based on <a href="http://getbootstrap.com" rel="nofollow">Bootstrap</a>. Icons from <a
+                    href="http://fortawesome.github.io/Font-Awesome/" rel="nofollow">Font Awesome</a>. Web fonts from <a href="http://www.google.com/webfonts" rel="nofollow">Google</a>.</p>
+
+          </div>
+        </div>
+      </footer>
+
+
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="http://bootswatch.com/assets/js/bootswatch.js"></script>
+    <script type="text/javascript">
+
+    $(document).ready(function() {
+
+        $(".alert-success").fadeTo(2000, 500).fadeOut(500, function(){
+            $(".alert-success").alert('close');
+        });
+
+        $(".alert-warning").fadeTo(2000, 500).fadeOut(500, function(){
+            $(".alert-warning").alert('close');
+        });
+    });
+
+</script>
+  </body>
+</html>
+

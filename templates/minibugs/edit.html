@@ -1,0 +1,14 @@
+{% extends 'minibugs/base.html' %}
+{% load bootstrap %}
+
+{% block content %}
+<div class="row">
+   <div class="col-md-12" role="main">
+        <form enctype="multipart/form-data" action="" method="post" id="mainform">{% csrf_token %}
+            {{ form|bootstrap }}
+            <button class="btn btn-warning btn-sm" type="reset">Reset</button>
+            <button class="btn btn-primary btn-sm" onclick="this.disabled=true;this.form.submit();">Save</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

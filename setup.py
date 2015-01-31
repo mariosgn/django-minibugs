@@ -4,14 +4,12 @@
 import os
 import sys
 
-import django-minibugs
-
 try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
 
-version = django-minibugs.__version__
+version = "0.1.0"
 
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')

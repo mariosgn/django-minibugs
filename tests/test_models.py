@@ -12,10 +12,10 @@ import os
 import shutil
 import unittest
 
-from django-minibugs import models
+from minibugs import models
 
 
-class TestDjango-minibugs(unittest.TestCase):
+class TestMinibugs(unittest.TestCase):
 
     def setUp(self):
         pass

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="http://bootswatch.com/darkly/bootstrap.css">
     <link rel="stylesheet" href="http://bootswatch.com/assets/css/bootswatch.min.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
+    
     <style type="text/css">
     footer {
         font-size: 12px;
@@ -32,8 +32,9 @@
         <div class="navbar-collapse collapse" id="navbar-main">
            
           <ul class="nav navbar-nav navbar-right">
+          {% if request.user.is_authenticated %}
             <li><a href="{% url 'minibugs_create' %}">New ticket</a></li>
-
+          {% endif %}
           </ul>
 
         </div>
@@ -66,7 +67,7 @@
 
             <ul class="list-unstyled">
               <li class="pull-right"><a href="#top">Back to top</a></li>
-              <li><a href="https://github.com/thomaspark/bootswatch/">GitHub</a></li>
+              <li><a href="https://github.com/mariosgn/django-minibugs">Minibugs on GitHub</a></li>
             </ul>
             <p>Made by <a href="http://www.gnufish.net" rel="nofollow">Mario Signorino</a>. Contact him at <a
                     href="mailto:mario.signorino@gnufish.net">mario.signorino@gnufish.net</a> .</p>
@@ -98,7 +99,8 @@
         });
     });
 
-</script>
+    </script>
+    {% block extra_script %}{% endblock %}
   </body>
 </html>
 

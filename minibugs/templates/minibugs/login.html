@@ -1,0 +1,32 @@
+{% extends "minibugs/base.html" %}
+
+{% load url from future %}
+{% load i18n %}
+{% load bootstrap %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <form method="POST" action="" autocapitalize="off">
+                <legend>{% trans "Log in" %}</legend>
+                {% csrf_token %}
+                {{ form|bootstrap }}
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                {% endif %}
+
+                <button type="submit" class="btn btn-primary">{% trans "Log in" %}</button>
+
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_script %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#id_username').focus();
+        });
+    </script>
+{% endblock %}
+

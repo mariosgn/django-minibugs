@@ -6,11 +6,18 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import FormMixin
 from django.views.generic.edit import BaseFormView
 from django.forms.models import model_to_dict
+from django.contrib.auth.decorators import login_required
 
 from .models import Ticket, TicketUpdate
 from .forms import TicketFormCreate, TicketFormUpdate, TicketFormFilter
 
-class MinibugsHome(ListView):
+class LoginRequiredMixin(object):
+    @classmethod
+    def as_view(cls, **initkwargs):
+        view = super(LoginRequiredMixin, cls).as_view(**initkwargs)
+        return login_required(view)
+
+class MinibugsHome(LoginRequiredMixin, ListView):
     template_name = "minibugs/list.html"
     model = Ticket
     fields = ['id']
@@ -65,7 +72,7 @@ class MinibugsHome(ListView):
         return qs.order_by("-created_time")
 
 
-class MinibugsDetails(ListView):
+class MinibugsDetails(LoginRequiredMixin, ListView):
     template_name = "minibugs/details.html"
     model = TicketUpdate
     fields = ['id']
@@ -80,7 +87,7 @@ class MinibugsDetails(ListView):
         return super(MinibugsDetails, self).get_queryset().filter(ticket_id=tid)
 
 
-class MinibugsCreate(SuccessMessageMixin, CreateView):
+class MinibugsCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = "minibugs/edit.html"
     model = TicketUpdate
     form_class = TicketFormCreate
@@ -102,7 +109,7 @@ class MinibugsCreate(SuccessMessageMixin, CreateView):
         return super(MinibugsCreate, self).form_valid(form)
 
 
-class MinibugsUpdate(SuccessMessageMixin, CreateView):
+class MinibugsUpdate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = "minibugs/edit.html"
     model = TicketUpdate
     form_class = TicketFormUpdate

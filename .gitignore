@@ -1,1 +1,6 @@
 *.pyc
+build/
+dist/
+django_minibugs.egg-info/
+.idea/
+db.sqlite3

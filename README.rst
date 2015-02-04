@@ -2,27 +2,50 @@
 django-minibugs
 =============================
 
-Minimalistic bugtracker for your django project
+Minimalistic bugtracker for your django project.
 
 Documentation
 -------------
 
-The full documentation is at https://django-minibugs.readthedocs.org.
+To be done..
 
 Quickstart
 ----------
 
-Install django-minibugs::
+Install and see it running::
 
-    pip install django-minibugs
+    $ virtualenv mbvenv
+    $ source mbvenv/bin/activate
+    (mbvenv)$ git clone https://github.com/mariosgn/django-minibugs.git
+    (mbvenv)$ pip install -r django-minibugs/requirements.txt
+    (mbvenv)$ cd django-minibugs/demo
+    (mbvenv)$ ./manage.py syncdb
+        [..create a superuser too..]
+    (mbvenv)$ ./manage.py runserver
+    
+Use it in your project
+----------------------
+1. Install minibugs with
 
-Then use it in a project::
+    $ pip install -r django-minibugs/requirements.txt
 
-    import django-minibugs
+2. Add ``minibugs`` to ``INSTALLED_APPS``.
+
+3. Add minibugs urls: 
+    
+    urlpatterns = patterns('',
+        #...
+        # replace *minibugs/* if you like
+        url(r'^minibugs/', include('minibugs.urls')),
+        #...
+    )
+
+
 
 TODO
 --------
 
-* Add projects grouping and permissions
-* Recap on update of the last description
-* Ordering and colors in the main table
+* add minibugs to pypi
+* Add projects groups and permissions
+* Recap of the last description while updating a ticket
+* Orders and colors in the main table

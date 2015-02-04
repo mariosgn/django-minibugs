@@ -20,7 +20,8 @@ Then use it in a project::
 
     import django-minibugs
 
-Features
+TODO
 --------
 
 * Add projects grouping and permissions
+* Recap on update of the last description

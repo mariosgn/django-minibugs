@@ -101,6 +101,7 @@ class MinibugsCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         self.object = form.save(commit=False)
         t = Ticket.objects.create(created_by=get_user(self.request))
         self.object.ticket = t
+        self.object.author = get_user(self.request)
 
         self.object.save()
         t.title = form.cleaned_data["title"]

@@ -26,13 +26,13 @@ Install and see it running::
 Use it in your project
 ----------------------
 
-Install and see it running::
+1. Install it ::
 
     $ pip install -r django-minibugs/requirements.txt
 
-Add ``minibugs`` to ``INSTALLED_APPS``.
+2. Add ``minibugs`` to ``INSTALLED_APPS``.
 
-Add also minibugs urls: 
+3. Add also minibugs urls :: 
 
     urlpatterns = patterns('',
         #...

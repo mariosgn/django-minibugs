@@ -34,9 +34,12 @@ Add ``minibugs`` to ``INSTALLED_APPS``.
 
 Add also minibugs urls: 
 
-    $ pip install -r django-minibugs/requirements.txt
+    urlpatterns = patterns('',
+        #...
+        url(r'^bugs/', include('minibugs.urls')),
+        #...
+    )
 
-qwe
 
 TODO
 --------

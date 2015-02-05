@@ -5,10 +5,18 @@ django-minibugs
 Minimalistic bugtracker for your django project.
 
 .. image:: https://github.com/mariosgn/django-minibugs/raw/master/minibugs.png
-    :alt: HTTPie compared to cURL
-    :width: 835
-    :height: 835
+    :alt: Main view
     :align: center
+
+.. image:: https://github.com/mariosgn/django-minibugs/raw/master/minibugs_det.png
+    :alt: Single ticket view
+    :align: center
+
+
+.. image:: https://github.com/mariosgn/django-minibugs/raw/master/minibugs.png
+    :alt: New ticket form
+    :align: center
+
 
 Documentation
 -------------

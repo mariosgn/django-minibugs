@@ -4,6 +4,14 @@ django-minibugs
 
 Minimalistic bugtracker for your django project.
 
+Just add minibugs to your project and debug yor work together with your customer.
+
+No need to add any complex bugtracker and force a non-technician to learn and use it.
+
+
+Screenshot
+-------------
+
 .. image:: https://github.com/mariosgn/django-minibugs/raw/master/minibugs.png
     :alt: Main view
     :align: center
@@ -69,3 +77,4 @@ TODO
 * Add projects groups and permissions
 * Recap of the last description while updating a ticket
 * Orders and colors in the main table
+* Use a different database if needed

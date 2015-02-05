@@ -40,6 +40,15 @@ Use it in your project
         #...
     )
 
+Requiremets
+-----------
+
+django-bootstrap-form
+Tested just on Django 1.7 but it should work also with older version.
+
+
+
+
 
 TODO
 --------

@@ -45,6 +45,8 @@ Install and see it running::
         [..create a superuser too..]
     (mbvenv)$ ./manage.py runserver
     
+The file upload wont work in the demo project    
+    
 Use it in your project
 ----------------------
 

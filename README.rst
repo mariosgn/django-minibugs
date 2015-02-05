@@ -4,6 +4,12 @@ django-minibugs
 
 Minimalistic bugtracker for your django project.
 
+.. image:: https://github.com/mariosgn/django-minibugs/raw/master/minibugs.png
+    :alt: HTTPie compared to cURL
+    :width: 835
+    :height: 835
+    :align: center
+
 Documentation
 -------------
 

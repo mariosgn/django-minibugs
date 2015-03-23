@@ -21,7 +21,7 @@ class MinibugsHome(LoginRequiredMixin, ListView):
     template_name = "minibugs/list.html"
     model = Ticket
     fields = ['id']
-    paginate_by = 10
+    #paginate_by = 10
     success_url = reverse_lazy('minibugs_home')
     filtering = False;
 

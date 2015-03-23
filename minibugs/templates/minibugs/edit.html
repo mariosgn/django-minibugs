@@ -6,8 +6,8 @@
    <div class="col-md-12" role="main">
         <form enctype="multipart/form-data" action="" method="post" id="mainform">{% csrf_token %}
             {{ form|bootstrap }}
-            <button class="btn btn-warning btn-sm" type="reset">Reset</button>
-            <button class="btn btn-primary btn-sm" onclick="this.disabled=true;this.form.submit();">Save</button>
+            <button class="btn btn-warning btn-sm" type="reset"><i class="fa fa-undo"></i> Reset</button>
+            <button class="btn btn-primary btn-sm" onclick="this.disabled=true;this.form.submit();"><i class="fa fa-floppy-o"></i> Save</button>
         </form>
     </div>
 </div>

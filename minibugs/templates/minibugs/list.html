@@ -11,8 +11,21 @@ background-color: #e74c3c;
 .label-E {
 background-color: #3498db;
 }
+
 .reset_filter {
     float: right;
+}
+
+.prio-H {
+background-color: #e74c3c;
+}
+
+.prio-M {
+background-color: #f0ad4e;
+}
+
+.prio-L {
+background-color: #777;
 }
 
 </style>
@@ -47,6 +60,7 @@ background-color: #3498db;
                 <tr>
                   <th></th>
                   <th>Type</th><!--Defect Enhancement-->
+                  <th>Priority</th>
                   <th>Created</th>
                   <th>Last Modify</th>
                   <th>Status</th>
@@ -60,8 +74,13 @@ background-color: #3498db;
                     <tr>
                       <td>
                           <a href="{%  url 'minibugs_details' t.id %}" class="btn btn-primary btn-xs">
-                              T#{{ t.id }}
+                             <i class="fa fa-pencil"></i> T#{{ t.id }}
                           </a>
+                      </td>
+                       <td>
+                          <span class="label prio-{{ t.current.priority }}">
+                              {{ t.current.get_priority_display }}
+                          </span>
                       </td>
                       <td>
                           <span class="label label-{{ t.current.type }}">
@@ -88,8 +107,8 @@ background-color: #3498db;
 
         <form action="" method="get" id="mainform">{% csrf_token %}
         {{form|bootstrap}}
-        <a href="{% url 'minibugs_home' %}?=0" class="btn btn-warning btn-sm" type="reset">ResetFilters</a>
-        <button class="btn btn-primary btn-sm" type="submit">Apply filters</button>
+        <a href="{% url 'minibugs_home' %}?=0" class="btn btn-warning btn-sm" type="reset"><i class="fa fa-undo"></i> Reset Filters</a>
+        <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-filter"></i> Apply filters</button>
         </form>
 
     </div>

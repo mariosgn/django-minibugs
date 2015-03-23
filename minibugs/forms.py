@@ -1,4 +1,4 @@
-from django.forms import Form, ModelForm, CharField, ChoiceField
+from django.forms import Form, ModelForm, CharField, ChoiceField, MultipleChoiceField
 from .models import TicketUpdate, PRIORITIES, TYPES, STATUSES
 
 class TicketFormUpdate(ModelForm):
@@ -29,9 +29,9 @@ class TicketFormCreate(ModelForm):
 
 
 class TicketFormFilter(Form):
-    priority = ChoiceField(choices=[('','---------')]+PRIORITIES, required=False)
-    status = ChoiceField(choices=[('','---------')]+STATUSES, required=False)
-    type = ChoiceField(choices=[('','---------')]+TYPES, required=False)
+    priority = MultipleChoiceField(choices=[('','---------')]+PRIORITIES, required=False)
+    status = MultipleChoiceField(choices=[('','---------')]+STATUSES, required=False)
+    type = MultipleChoiceField(choices=[('','---------')]+TYPES, required=False)
     description = CharField(required=False)
     title = CharField(required=False)
 

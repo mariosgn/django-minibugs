@@ -29,14 +29,14 @@
             <span class="icon-bar"></span>
           </button>
         </div>
-        <div class="navbar-collapse collapse" id="navbar-main">
-           
-          <ul class="nav navbar-nav navbar-right">
-          {% if request.user.is_authenticated %}
-            <li><a href="{% url 'minibugs_create' %}">New ticket</a></li>
-          {% endif %}
-          </ul>
 
+
+        <div class="navbar-collapse collapse" id="navbar-main">
+            <div class="navbar-form navbar-right" role="search">
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'minibugs_create' %}" type="submit" class="btn btn-info "><i class="fa fa-plus"></i> New ticket</a></a>
+                {% endif %}
+            </div>
         </div>
       </div>
     </div>

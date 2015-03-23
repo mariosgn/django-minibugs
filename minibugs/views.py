@@ -54,15 +54,16 @@ class MinibugsHome(LoginRequiredMixin, ListView):
                 self.filtering = True
 
             if len(form.cleaned_data["priority"]) > 0:
-                qs = qs.filter(current__priority=form.cleaned_data["priority"])
+                asd = form.cleaned_data["priority"]
+                qs = qs.filter(current__priority__in=form.cleaned_data["priority"])
                 self.filtering = True
 
             if len(form.cleaned_data["status"]) > 0:
-                qs = qs.filter(current__status=form.cleaned_data["status"])
+                qs = qs.filter(current__status__in=form.cleaned_data["status"])
                 self.filtering = True
 
             if len(form.cleaned_data["type"]) > 0:
-                qs = qs.filter(current__type=form.cleaned_data["type"])
+                qs = qs.filter(current__type__in=form.cleaned_data["type"])
                 self.filtering = True
 
             if len(form.cleaned_data["description"]) > 0:

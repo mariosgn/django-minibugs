@@ -10,6 +10,7 @@
 
 {% if request.user.is_authenticated %}
     <p>Ok, now you can start solving bbbugs!</p>
+    <p>Click on the bottom button or just go <a href="{% url 'minibugs_home' %}">here</a></p>
 {% else %}
     <p>Please, log in <a href="{% url "sample_login" %}?next=/">here</a>!</p>
 {% endif %}

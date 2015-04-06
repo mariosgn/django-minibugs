@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<p>Hi... this is a sample website!</p>
+
+
+{% if request.user.is_authenticated %}
+    <p>Ok, now you can start solving bbbugs!</p>
+{% else %}
+    <p>Please, log in <a href="{% url "sample_login" %}?next=/">here</a>!</p>
+{% endif %}
+
+</body>
+</html>

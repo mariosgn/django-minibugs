@@ -13,6 +13,9 @@
     footer {
         font-size: 12px;
     }
+    #minibugs_modal_btn {
+        display: none;
+    }
 
     </style>
     {% block css %}
@@ -34,7 +37,12 @@
         <div class="navbar-collapse collapse" id="navbar-main">
             <div class="navbar-form navbar-right" role="search">
                 {% if request.user.is_authenticated %}
-                <a href="{% url 'minibugs_create' %}" type="submit" class="btn btn-info "><i class="fa fa-plus"></i> New ticket</a></a>
+                <a href="{% url 'minibugs_create' %}" class="btn btn-info "><i class="fa fa-plus"></i> New ticket</a></a>
+
+                    {% if view_name %}
+                    <a href="{% url 'minibugs_create' %}?viewname={{ view_name }}" class="btn btn-info "><i class="fa fa-plus"></i> New ticket for this view</a></a>
+                    {% endif %}
+
                 {% endif %}
             </div>
         </div>
@@ -44,11 +52,11 @@
 
     <div class="container">
 
+
         <div class="row">
           <div class="col-lg-12">
-            <h2>Mini Bug Tracker</h2>
-            <p class="lead"></p>
-          </div> 
+            <h3>{% block pagetitle %}Mini Bug Tracker{% endblock %}</h3>
+          </div>
         </div>
 
         {% for message in messages %}

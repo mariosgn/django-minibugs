@@ -31,6 +31,12 @@
     </style>
 {% endblock %}
 
+{% block pagetitle %}
+Ticket list
+    {% if view_name %}    for view: {{ view_name }}
+    {% endif %}
+{% endblock %}
+
 
 {% block content %}
     <div class="row">
@@ -63,7 +69,6 @@
                                 <th></th>
                                 <th>Priority</th>
                                 <th>Type</th>
-                                <!--Defect Enhancement-->
                                 <th>Created</th>
                                 <th>Last Modify</th>
                                 <th>Status</th>
@@ -101,7 +106,7 @@
                                 </tr>
                             {% empty %}
                                 <tr>
-                                    <td colspan="7" align="center">No bugs here..</td>
+                                    <td colspan="9" align="center">No bugs here..</td>
                                 </tr>
                             {% endfor %}
                             </tbody>

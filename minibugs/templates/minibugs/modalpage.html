@@ -1,97 +1,122 @@
 <div id="minibugs_modal_btn">
-    <button id="minibugsModalBtn" class="btn btn-default" type="button"><i class="fa fa-bug"> Minibugs</i></button>
- </div>
-<div class="modal fade" id="minibugsModal" tabindex="-1" role="dialog"   >
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="minibugsModalLabel">Minibugs tickets for this page: <span class="viewname">{{ view_name }}</span></h4>
-      </div>
-      <div class="modal-body">
-
-          <table class="table table-striped table-hover ">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>Priority</th>
-                    <th>Type</th>
-                     <th>Last Modify</th>
-                    <th>Status</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                {% for t in tickets %}
-                    <tr>
-                        <td>
-                            <a href="{% url 'minibugs_details' t.id %}" class="btn btn-primary btn-xs">
-                                <i class="fa fa-pencil"></i> T#{{ t.id }}
-                            </a>
-                        </td>
-                        <td>
-              <span class="label prio-{{ t.current.priority }}">
-                  {{ t.current.get_priority_display }}
-              </span>
-                        </td>
-                        <td>
-              <span class="label label-{{ t.current.type }}">
-                  {{ t.current.get_type_display }}
-              </span>
-                        </td>
-
-                        <td>{{ t.current.created_time|date:"SHORT_DATE_FORMAT" }}</td>
-                        <td>{{ t.current.get_status_display }}</td>
-                        <td>{{ t.title }}</td>
-                        <td>{{ t.current.description|truncatewords:20 }}</td>
-
-                    </tr>
-                {% empty %}
-                    <tr>
-                        <td colspan="7" align="center">No bugs here..</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-
-
-      </div>
-      <div class="modal-footer">
-        <a href="{% url "minibugs_create" %}?viewname={{ view_name }}" type="button" class="btn btn-info">New ticket on this view</a>
-        <a href="{% url "minibugs_home" %}" type="button" class="btn btn-primary">Go to ticket list</a>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
+    <a class="minibugsBtn" id="minibugsOpenFullBtn" href="{% url 'minibugs_home' %}"><i class="fa fa-bug"> Minibugs Open Full </i></a>
+    <a class="minibugsBtn" id="minibugsModalBtn"><i class="fa fa-bug"> Minibugs</i></a>
 </div>
-
-
-<script type="text/javascript">
-     $(document).ready(function() {
-        $('#minibugsModalBtn').on( 'click', function () {
-            $('#minibugsModal').modal({
-                backdrop: false
-              });
-        } );
-    } );
-</script>
-
+<div class="messagepop pop" id="minibugs_modal">
+</div>
+<!-- {% url "minibugs_create" %}?viewname={{ view_name }} -->
 
 <style>
     #minibugs_modal_btn {
         position: fixed;
-        bottom:10px;
+        bottom: 10px;
         right: 10px;
     }
-    #minibugsModal {
-       z-index: 2050;
-    }
-    .viewname
+    #minibugsOpenFullBtn
     {
-        font-weight: 700;
-        font-size: larger;
+        display: none;
     }
 
+    .messagepop {
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        background-color: #222222;
+        border: 5px solid #222222;
+        cursor: default;
+        display: none;
+        width: 80%;
+        height: 80%;
+        overflow: auto;
+        margin: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
+
+    .minibugsBtn {
+        -moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
+        -webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
+        box-shadow: inset 0px 1px 0px 0px #ffffff;
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf));
+        background: -moz-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+        background: -webkit-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+        background: -o-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+        background: -ms-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+        background: linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf', GradientType=0);
+        background-color: #ededed;
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        border-radius: 6px;
+        border: 1px solid #dcdcdc;
+        display: inline-block;
+        cursor: pointer;
+        color: #777777;
+        font-family: arial;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 6px 24px;
+        text-decoration: none;
+        text-shadow: 0px 1px 0px #ffffff;
+    }
+
+    .minibugsBtn:hover {
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed));
+        background: -moz-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+        background: -webkit-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+        background: -o-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+        background: -ms-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+        background: linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed', GradientType=0);
+        background-color: #dfdfdf;
+    }
+
+    .minibugsBtn:active {
+        position: relative;
+        top: 1px;
+    }
+
+
 </style>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+<script type="text/javascript">
+
+    function deselect(e) {
+        $('.pop').slideFadeToggle(function () {
+            e.removeClass('selected');
+        });
+    }
+
+    $(function () {
+        $('#minibugsModalBtn').on('click', function () {
+            if ($(this).hasClass('selected')) {
+                deselect($(this));
+                $("#minibugsOpenFullBtn").hide();
+            } else {
+                $(this).addClass('selected');
+                $('.pop').slideFadeToggle();
+                $("#minibugs_modal").html("<iframe width='100%' height='99%' src='{% url 'minibugs_home' %}?viewname={{ view_name }}' frameborder='0' scrolling='auto' marginheight='0' marginwidth='0' style='border:0'></iframe>");
+                $("#minibugsOpenFullBtn").show();
+            }
+            return false;
+        });
+
+        $('.close').on('click', function () {
+            deselect($('#contact'));
+            return false;
+        });
+    });
+
+    $.fn.slideFadeToggle = function (easing, callback) {
+        return this.animate({opacity: 'toggle', height: 'toggle'}, 'fast', easing, callback);
+    };
+</script>
+
+
+
+

@@ -3,8 +3,6 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic import CreateView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic.edit import FormMixin
-from django.views.generic.edit import BaseFormView
 from django.forms.models import model_to_dict
 from django.contrib.auth.decorators import login_required
 
@@ -30,13 +28,22 @@ class MinibugsHome(LoginRequiredMixin, ListView):
             form = TicketFormFilter( self.request.GET )
             form.is_valid()
         else:
-            form = TicketFormFilter()
+            initial={}
+
+            if "viewname" in self.request.GET and self.request.GET["viewname"] is not None:
+                initial={'viewname': self.request.GET["viewname"]}
+
+            form = TicketFormFilter( initial )
         return form
 
     def get_context_data(self, **kwargs):
         ctx = super(MinibugsHome, self).get_context_data(**kwargs)
         ctx["form"] = self.get_form()
         ctx["filtering"] = self.filtering
+
+        if "viewname" in self.request.GET and self.request.GET["viewname"] is not None:
+            ctx["view_name"] = self.request.GET["viewname"]
+
         return ctx
 
     def get_queryset(self):
@@ -68,6 +75,10 @@ class MinibugsHome(LoginRequiredMixin, ListView):
             if len(form.cleaned_data["description"]) > 0:
                 qs = qs.filter(current__description__icontains=form.cleaned_data["description"])
                 self.filtering = True
+
+        if "viewname" in self.request.GET and self.request.GET["viewname"] is not None:
+            qs = qs.filter(viewname__icontains=self.request.GET["viewname"])
+            self.filtering = True
 
         return qs.order_by("-created_time")
 

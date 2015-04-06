@@ -1,6 +1,7 @@
 from django.utils.encoding import force_text
 from django.conf import settings
 from django.template.loader import render_to_string
+from django.contrib.auth import get_user
 
 from .models import Ticket, TicketUpdate
 
@@ -12,6 +13,10 @@ _HTML_TYPES = ('text/html', 'application/xhtml+xml')
 class MinibugsMiddleware:
 
     def process_response(self, request, response):
+        u = get_user(request)
+        if u.is_anonymous() or not u.is_authenticated():
+            return response
+
         # Check for responses where the toolbar can't be inserted.
         content_encoding = response.get('Content-Encoding', '')
         content_type = response.get('Content-Type', '').split(';')[0]

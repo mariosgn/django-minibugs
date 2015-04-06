@@ -13,10 +13,25 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Project',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('title', models.CharField(max_length=250)),
+                ('description', models.CharField(max_length=250, null=True, blank=True)),
+                ('created_time', models.DateTimeField(auto_now_add=True)),
+                ('users', models.ManyToManyField(to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'ordering': ['created_time'],
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='Ticket',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=250)),
+                ('viewname', models.CharField(max_length=250, null=True, blank=True)),
                 ('created_time', models.DateTimeField(auto_now_add=True)),
                 ('created_by', models.ForeignKey(related_name='+', to=settings.AUTH_USER_MODEL)),
             ],
@@ -31,7 +46,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('description', models.TextField()),
                 ('attachment', models.FileField(null=True, upload_to=b'minibugs', blank=True)),
-                ('status', models.CharField(default=b'N', max_length=1, choices=[(b'N', b'New'), (b'W', b'Working'), (b'F', b'Fixed'), (b'V', b'Verified'), (b'T', b"Won't Fix"), (b'B', b'Not a Bug'), (b'C', b'Closed')])),
+                ('status', models.CharField(default=b'N', max_length=1, choices=[(b'N', b'New'), (b'W', b'Working'), (b'V', b'Verified'), (b'F', b'Fixed'), (b'T', b"Won't Fix"), (b'B', b'Not a Bug'), (b'C', b'Closed')])),
                 ('type', models.CharField(default=b'N', max_length=1, choices=[(b'D', b'Defect'), (b'E', b'Enhancement')])),
                 ('priority', models.CharField(default=b'D', max_length=1, choices=[(b'L', b'Low'), (b'M', b'Medium'), (b'H', b'High')])),
                 ('created_time', models.DateTimeField(auto_now_add=True)),

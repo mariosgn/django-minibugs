@@ -44,13 +44,12 @@ class MinibugsHome(LoginRequiredMixin, ListView):
         form = self.get_form()
         if form.is_valid():
 
-            #for field in form.cleaned_data:
-            #    if len(field) > 0:
-            #        qs = qs.filter(**{field+'__contains': form.cleaned_data[field]})
-            #        self.filtering = True
-
             if len(form.cleaned_data["title"]) > 0:
                 qs = qs.filter(title__icontains=form.cleaned_data["title"])
+                self.filtering = True
+
+            if len(form.cleaned_data["viewname"]) > 0:
+                qs = qs.filter(viewname__icontains=form.cleaned_data["viewname"])
                 self.filtering = True
 
             if len(form.cleaned_data["priority"]) > 0:
@@ -95,6 +94,12 @@ class MinibugsCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('minibugs_home')
     success_message = "Ticket %d created"
 
+    def get_initial(self):
+        initial = super(MinibugsCreate, self).get_initial()
+        if "viewname" in self.request.GET and self.request.GET["viewname"] is not None:
+            initial["viewname"] = self.request.GET["viewname"]
+        return initial
+
     def get_success_message(self, cleaned_data):
         return self.success_message % self.object.ticket.id
 
@@ -106,6 +111,7 @@ class MinibugsCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
         self.object.save()
         t.title = form.cleaned_data["title"]
+        t.viewname = form.cleaned_data["viewname"]
         t.current = self.object
         t.save()
         return super(MinibugsCreate, self).form_valid(form)

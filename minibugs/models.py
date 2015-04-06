@@ -3,8 +3,8 @@ from django.db import models
 
 STATUSES = [('N', 'New'),
             ('W', 'Working'),
-            ('F', 'Fixed'),
             ('V', 'Verified'),
+            ('F', 'Fixed'),
             ('T', 'Won\'t Fix'),
             ('B', 'Not a Bug'),
             ('C', 'Closed'),
@@ -19,8 +19,22 @@ PRIORITIES = [('L', 'Low'),
               ('H', 'High')]
 
 
+class Project(models.Model):
+    title = models.CharField(max_length=250)
+    description = models.CharField(max_length=250, blank=True, null=True)
+    created_time = models.DateTimeField(auto_now_add=True)
+    users = models.ManyToManyField(settings.AUTH_USER_MODEL)
+
+    class Meta:
+        ordering = ['created_time']
+
+    def __unicode__(self):
+        return self.title
+
+
 class Ticket(models.Model):
     title = models.CharField(max_length=250)
+    viewname = models.CharField(max_length=250, blank=True, null=True)
     created_time = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='+')
     current = models.ForeignKey('TicketUpdate', null=True, blank=True, related_name='current')

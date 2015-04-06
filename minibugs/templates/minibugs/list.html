@@ -3,129 +3,128 @@
 {% load bootstrap %}
 
 {% block css %}
-<style type="text/css">
-.label-D {
-background-color: #e74c3c;
-}
+    <style type="text/css">
+        .label-D {
+            background-color: #e74c3c;
+        }
 
-.label-E {
-background-color: #3498db;
-}
+        .label-E {
+            background-color: #3498db;
+        }
 
-.reset_filter {
-    float: right;
-}
+        .reset_filter {
+            float: right;
+        }
 
-.prio-H {
-background-color: #e74c3c;
-}
+        .prio-H {
+            background-color: #e74c3c;
+        }
 
-.prio-M {
-background-color: #f0ad4e;
-}
+        .prio-M {
+            background-color: #f0ad4e;
+        }
 
-.prio-L {
-background-color: #777;
-}
+        .prio-L {
+            background-color: #777;
+        }
 
-</style>
+    </style>
 {% endblock %}
 
 
 {% block content %}
     <div class="row">
-  <div class="col-lg-12">
-  {% if filtering %}
-      <p class="reset_filter"><a href="{% url 'minibugs_home' %}?=0" class="btn btn-warning btn-sm"
-                      type="reset">ResetFilters</a></p>
-  {% endif %}
+        <div class="col-lg-12">
+            {% if filtering %}
+                <p class="reset_filter"><a href="{% url 'minibugs_home' %}?=0" class="btn btn-warning btn-sm"
+                                           type="reset">ResetFilters</a></p>
+            {% endif %}
 
 
-  <div role="tabpanel">
+            <div role="tabpanel">
 
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#buglist" aria-controls="buglist" role="tab" data-toggle="tab">Bug
-        List</a></li>
-    <li role="presentation"><a href="#filters" aria-controls="filters" role="tab" data-toggle="tab">Filters</a></li>
-  </ul>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#buglist" aria-controls="buglist" role="tab"
+                                                              data-toggle="tab">Bug
+                        List</a></li>
+                    <li role="presentation"><a href="#filters" aria-controls="filters" role="tab" data-toggle="tab">Filters</a>
+                    </li>
+                </ul>
 
-  <!-- Tab panes -->
-  <div class="tab-content">
+                <!-- Tab panes -->
+                <div class="tab-content">
 
-    <div role="tabpanel" class="tab-pane active" id="buglist">
+                    <div role="tabpanel" class="tab-pane active" id="buglist">
 
-        <table class="table table-striped table-hover ">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Priority</th>
-                  <th>Type</th><!--Defect Enhancement-->
-                  <th>Created</th>
-                  <th>Last Modify</th>
-                  <th>Status</th>
-                  <th>Title</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
+                        <table class="table table-striped table-hover ">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Priority</th>
+                                <th>Type</th>
+                                <!--Defect Enhancement-->
+                                <th>Created</th>
+                                <th>Last Modify</th>
+                                <th>Status</th>
+                                <th>View</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-                {% for t in object_list %}
-                    <tr>
-                      <td>
-                          <a href="{%  url 'minibugs_details' t.id %}" class="btn btn-primary btn-xs">
-                             <i class="fa fa-pencil"></i> T#{{ t.id }}
-                          </a>
-                      </td>
-                       <td>
+                            {% for t in object_list %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'minibugs_details' t.id %}" class="btn btn-primary btn-xs">
+                                            <i class="fa fa-pencil"></i> T#{{ t.id }}
+                                        </a>
+                                    </td>
+                                    <td>
                           <span class="label prio-{{ t.current.priority }}">
                               {{ t.current.get_priority_display }}
                           </span>
-                      </td>
-                      <td>
+                                    </td>
+                                    <td>
                           <span class="label label-{{ t.current.type }}">
                               {{ t.current.get_type_display }}
                           </span>
-                      </td>
-                      <td>{{ t.created_time|date:"SHORT_DATE_FORMAT"}}</td>
-                      <td>{{ t.current.created_time|date:"SHORT_DATE_FORMAT" }}</td>
-                      <td>{{ t.current.get_status_display }}</td>
-                      <td>{{ t.title }}</td>
-                      <td>{{ t.current.description|truncatewords:20 }}</td>
+                                    </td>
+                                    <td>{{ t.created_time|date:"SHORT_DATE_FORMAT" }}</td>
+                                    <td>{{ t.current.created_time|date:"SHORT_DATE_FORMAT" }}</td>
+                                    <td>{{ t.current.get_status_display }}</td>
+                                    <td>{{ t.viewname }}</td>
+                                    <td>{{ t.title }}</td>
+                                    <td>{{ t.current.description|truncatewords:20 }}</td>
 
-                    </tr>
-                {% empty %}
-                    <tr>
-                      <td colspan="7" align="center">No bugs here..</td>
-                    </tr>
-                {% endfor %}
-              </tbody>
-            </table>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="7" align="center">No bugs here..</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
 
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="filters">
+
+                        <form action="" method="get" id="mainform">{% csrf_token %}
+                            {{ form|bootstrap }}
+                            <a href="{% url 'minibugs_home' %}?=0" class="btn btn-warning btn-sm" type="reset"><i
+                                    class="fa fa-undo"></i> Reset Filters</a>
+                            <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-filter"></i> Apply
+                                filters
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
     </div>
-    <div role="tabpanel" class="tab-pane" id="filters">
-
-        <form action="" method="get" id="mainform">{% csrf_token %}
-        {{form|bootstrap}}
-        <a href="{% url 'minibugs_home' %}?=0" class="btn btn-warning btn-sm" type="reset"><i class="fa fa-undo"></i> Reset Filters</a>
-        <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-filter"></i> Apply filters</button>
-        </form>
-
-    </div>
-  </div>
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-   </div>
-</div>
 {% endblock %}
